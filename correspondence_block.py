@@ -18,7 +18,7 @@ def train_correspondence_block(root_dir, classes, epochs=10):
                                 transform=transforms.Compose([transforms.ToTensor(),
                                 transforms.ColorJitter(brightness=0, contrast=0, saturation=0, hue=0)]))
 
-    batch_size = 4
+    batch_size = 2
     num_workers = 0
     valid_size = 0.2
     # obtain training indices that will be used for validation

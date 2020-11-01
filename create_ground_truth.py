@@ -114,6 +114,7 @@ def create_GT_masks(root_dir, background_dir, intrinsic_matrix,classes):
             background_img = cv2.resize(
                 background_img, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_AREA)
             background_img[y_2d, x_2d, :] = image[y_2d, x_2d, :]
+            background_img = cv2.cvtColor(background_img, cv2.COLOR_BGR2RGB)
             background_adr = root_dir + label + \
                 "/changed_background/color" + str(idx) + ".png"
             mpimg.imsave(background_adr, background_img)
@@ -132,8 +133,8 @@ def create_GT_masks(root_dir, background_dir, intrinsic_matrix,classes):
         # Saving ID, U and V masks after using the fill holes function
         ID_mask, U_mask, V_mask = fill_holes(ID_mask, U_mask, V_mask)
         cv2.imwrite(ID_mask_file, ID_mask)
-        mpimg.imsave(U_mask_file, U_mask, cmap='gray')
-        mpimg.imsave(V_mask_file, V_mask, cmap='gray')
+        mpimg.imsave(U_mask_file, cv2.cvtColor(U_mask, cv2.COLOR_BGR2RGB), cmap='gray')
+        mpimg.imsave(V_mask_file, cv2.cvtColor(V_mask, cv2.COLOR_BGR2RGB), cmap='gray')
 
 
 def create_UV_XYZ_dictionary(root_dir):

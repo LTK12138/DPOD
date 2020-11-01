@@ -91,7 +91,8 @@ def create_refinement_inputs(root_dir, classes, intrinsic_matrix):
             obj_img = obj_img.transpose(0, 1).transpose(0, 2).unsqueeze(dim=0)
             obj_img = upsampled(obj_img)
             obj_img = obj_img.squeeze().transpose(0, 2).transpose(0, 1)
-            mpimg.imsave(adr_img, obj_img.squeeze().numpy())
+
+            cv2.imwrite(adr_img, obj_img.squeeze().numpy())
 
             # create rendering for an object
             cropped_rendered_image = create_rendering(
@@ -101,7 +102,8 @@ def create_refinement_inputs(root_dir, classes, intrinsic_matrix):
             rendered_img = rendered_img.transpose(1, 3).transpose(2, 3)
             rendered_img = upsampled(rendered_img)
             rendered_img = rendered_img.squeeze().transpose(0, 2).transpose(0, 1)
-            mpimg.imsave(adr_rendered, rendered_img.numpy())
+
+            cv2.imwrite(adr_rendered, rendered_img.numpy())
 
         else:  # object not present in idmask prediction
             count += 1
