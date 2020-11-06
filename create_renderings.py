@@ -107,6 +107,6 @@ def create_refinement_inputs(root_dir, classes, intrinsic_matrix):
 
         else:  # object not present in idmask prediction
             count += 1
-            mpimg.imsave(adr_rendered, np.zeros((240, 320)))
-            mpimg.imsave(adr_img, np.zeros((240, 320)))
+            cv2.imwrite(adr_rendered, np.zeros((240, 320)))
+            cv2.imwrite(adr_img, np.zeros((240, 320)))
     print("Number of outliers: ", count)
