@@ -67,7 +67,6 @@ create_GT_masks(root_dir, background_dir, intrinsic_matrix, classes)
 create_UV_XYZ_dictionary(root_dir)  # create UV - XYZ dictionaries
 print("----- Finished creating ground truth -----")
 '''
-
 print("------ Started training of the correspondence block ------")
 train_correspondence_block(root_dir, classes, epochs=20)
 print("------ Training Finished ------")
@@ -79,7 +78,6 @@ print("------ Finished Initial pose estimation -----")
 print("----- Started creating inputs for DL based pose refinement ------")
 create_refinement_inputs(root_dir, classes, intrinsic_matrix)
 print("----- Finished creating inputs for DL based pose refinement")
-
 
 print("----- Started training DL based pose refiner ------")
 train_pose_refinement(root_dir, classes, epochs=10)

@@ -132,9 +132,9 @@ def create_GT_masks(root_dir, background_dir, intrinsic_matrix,classes):
 
         # Saving ID, U and V masks after using the fill holes function
         ID_mask, U_mask, V_mask = fill_holes(ID_mask, U_mask, V_mask)
-        cv2.imwrite(ID_mask_file, ID_mask)
-        cv2.imwrite(U_mask_file, U_mask)
-        cv2.imwrite(V_mask_file, V_mask)
+        cv2.imwrite(ID_mask_file, ID_mask*255)
+        cv2.imwrite(U_mask_file, U_mask*255)
+        cv2.imwrite(V_mask_file, V_mask*255)
 
 
 def create_UV_XYZ_dictionary(root_dir):
