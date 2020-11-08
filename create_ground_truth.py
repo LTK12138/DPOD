@@ -132,15 +132,18 @@ def create_GT_masks(root_dir, background_dir, intrinsic_matrix,classes):
 
         # Saving ID, U and V masks after using the fill holes function
         ID_mask, U_mask, V_mask = fill_holes(ID_mask, U_mask, V_mask)
-        cv2.imwrite(ID_mask_file, ID_mask*255)
+        cv2.imwrite(ID_mask_file, ID_mask)
         cv2.imwrite(U_mask_file, U_mask*255)
         cv2.imwrite(V_mask_file, V_mask*255)
 
 
 def create_UV_XYZ_dictionary(root_dir):
 
+    '''
     classes = ['ape', 'benchviseblue', 'can', 'cat', 'driller', 'duck', 'glue', 'holepuncher',
                'iron', 'lamp', 'phone', 'cam', 'eggbox']
+    '''
+    classes = ['iron']
     # create a dictionary for UV to XYZ correspondence
     for label in classes:
         ptcld_file = root_dir + label + "/object.xyz"
@@ -166,8 +169,22 @@ def create_UV_XYZ_dictionary(root_dir):
 
 def dataset_dir_structure(root_dir):
 
+    '''
     classes = ['ape', 'benchviseblue', 'can', 'cat', 'driller', 'duck', 'glue', 'holepuncher',
                'iron', 'lamp', 'phone', 'cam', 'eggbox']
+
+    for label in classes:  # create directories to store data
+        os.mkdir(root_dir + label + "/predicted_pose")
+        os.mkdir(root_dir + label + "/ground_truth")
+        os.mkdir(root_dir + label + "/ground_truth/IDmasks")
+        os.mkdir(root_dir + label + "/ground_truth/Umasks")
+        os.mkdir(root_dir + label + "/ground_truth/Vmasks")
+        os.mkdir(root_dir + label + "/changed_background")
+        os.mkdir(root_dir + label + "/pose_refinement")
+        os.mkdir(root_dir + label + "/pose_refinement/real")
+        os.mkdir(root_dir + label + "/pose_refinement/rendered")
+    '''
+    classes = ['iron']
 
     for label in classes:  # create directories to store data
         os.mkdir(root_dir + label + "/predicted_pose")
