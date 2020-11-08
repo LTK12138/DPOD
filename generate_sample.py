@@ -68,8 +68,8 @@ def generate_sample(root_dir, background_dir, intrinsic_matrix, classes, nSample
 
         # for d in range(70, 120, nSampleD):
         for zAngle in range(360//nSampleAng):
-            for xAngle in range(180//nSampleAng+1):
-                rot_matrix = get_rot(zAngle*math.radians(nSampleAng), xAngle*math.radians(nSampleAng)-math.pi/2)
+            for xAngle in range(90//nSampleAng+1):
+                rot_matrix = get_rot(zAngle*math.radians(nSampleAng), -xAngle*math.radians(nSampleAng))
                 trans_matrix = np.array([random.random()*70-35,random.random()*50-25,100]).reshape((3,1))
                 rigid_transformation = np.append(rot_matrix, trans_matrix, axis=1)
 
