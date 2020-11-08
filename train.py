@@ -22,7 +22,7 @@ parser.add_argument("--root_dir", default="LineMOD_Dataset/",
                     help="path to dataset directory")
 parser.add_argument("--bgd_dir", default="val2017/",
                     help="path to background images dataset directory")
-parser.add_argument("--split", default=0.15, help="train:test split ratio")
+parser.add_argument("--split", default=0.5, help="train:test split ratio")
 args = parser.parse_args()
 
 root_dir = args.root_dir
@@ -58,23 +58,27 @@ fy = 573.57043
 py = 242.04899
 intrinsic_matrix = np.array([[fx, 0, px], [0, fy, py], [0, 0, 1]])
 
+'''
 classes = {'ape': 1, 'benchviseblue': 2, 'cam': 3, 'can': 4, 'cat': 5, 'driller': 6,
            'duck': 7, 'eggbox': 8, 'glue': 9, 'holepuncher': 10, 'iron': 11, 'lamp': 12, 'phone': 13}
+'''
+
+classes = {'iron': 11}
 
 '''
 print("------ Start creating ground truth ------")
 create_GT_masks(root_dir, background_dir, intrinsic_matrix, classes)
 create_UV_XYZ_dictionary(root_dir)  # create UV - XYZ dictionaries
 print("----- Finished creating ground truth -----")
-'''
-print("------ Started training of the correspondence block ------")
-train_correspondence_block(root_dir, classes, epochs=20)
-print("------ Training Finished ------")
 
+print("------ Started training of the correspondence block ------")
+train_correspondence_block(root_dir, classes, epochs=10)
+print("------ Training Finished ------")
+'''
 print("------ Started Initial pose estimation ------")
 initial_pose_estimation(root_dir, classes, intrinsic_matrix)
 print("------ Finished Initial pose estimation -----")
-
+'''
 print("----- Started creating inputs for DL based pose refinement ------")
 create_refinement_inputs(root_dir, classes, intrinsic_matrix)
 print("----- Finished creating inputs for DL based pose refinement")
@@ -82,3 +86,4 @@ print("----- Finished creating inputs for DL based pose refinement")
 print("----- Started training DL based pose refiner ------")
 train_pose_refinement(root_dir, classes, epochs=10)
 print("----- Finished training DL based pose refiner ------")
+'''
