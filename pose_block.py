@@ -47,10 +47,35 @@ def initial_pose_estimation(root_dir, classes, intrinsic_matrix):
         adr = root_dir + label + "/predicted_pose/" + \
             "info_" + str(idx) + ".txt"
 
+        id_mask_file = root_dir + label + \
+                       "/predicted_pose_shape/IDmasks/color" + str(idx) + ".txt"
+        u_mask_file = root_dir + label + \
+                      "/predicted_pose_shape/Umasks/color" + str(idx) + ".txt"
+        v_mask_file = root_dir + label + \
+                      "/predicted_pose_shape/Vmasks/color" + str(idx) + ".txt"
+
+        np.savetxt(id_mask_file, idmask_pred.shape)
+        np.savetxt(u_mask_file, umask_pred.shape)
+        np.savetxt(v_mask_file, vmask_pred.shape)
+
+
+        id_mask_file = root_dir + label + \
+                       "/predicted_pose_img/IDmasks/color" + str(idx) + ".png"
+        u_mask_file = root_dir + label + \
+                      "/predicted_pose_img/Umasks/color" + str(idx) + ".png"
+        v_mask_file = root_dir + label + \
+                      "/predicted_pose_img/Vmasks/color" + str(idx) + ".png"
+
+        cv2.imwrite(id_mask_file,temp.numpy())
+        cv2.imwrite(u_mask_file, upred.numpy())
+        cv2.imwrite(v_mask_file, vpred.numpy())
+
+
         coord_2d = torch.cat((coord_2d[0].view(
             coord_2d[0].shape[0], 1), coord_2d[1].view(coord_2d[1].shape[0], 1)), 1)
         uvalues = upred[coord_2d[:, 0], coord_2d[:, 1]]
         vvalues = vpred[coord_2d[:, 0], coord_2d[:, 1]]
+
         dct_keys = torch.cat((uvalues.view(-1, 1), vvalues.view(-1, 1)), 1)
         dct_keys = tuple(dct_keys.numpy())
         dct = load_obj(root_dir + label + "/UV-XYZ_mapping")

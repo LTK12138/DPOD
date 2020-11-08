@@ -59,7 +59,7 @@ parser.add_argument("--root_dir", default="/home/jovyan/work/LineMOD_Dataset/",
 args = parser.parse_args()
 
 root_dir = args.root_dir
-
+'''
 classes = {'ape': 1, 'benchviseblue': 2, 'cam': 3, 'can': 4, 'cat': 5, 'driller': 6,
            'duck': 7, 'eggbox': 8, 'glue': 9, 'holepuncher': 10, 'iron': 11, 'lamp': 12, 'phone': 13}
 
@@ -68,6 +68,10 @@ score_card = {'ape': 0, 'benchviseblue': 0, 'cam': 0, 'can': 0, 'cat': 0, 'drill
 
 instances = {'ape': 0, 'benchviseblue': 0, 'cam': 0, 'can': 0, 'cat': 0, 'driller': 0,
              'duck': 0, 'eggbox': 0, 'glue': 0, 'holepuncher': 0, 'iron': 0, 'lamp': 0, 'phone': 0}
+'''
+classes = {'iron': 11}
+score_card = {'iron': 0}
+instances = {'iron': 0}
 
 transform = transforms.Compose([transforms.ToPILImage(mode=None),
                                 transforms.Resize(size=(224, 224)),
