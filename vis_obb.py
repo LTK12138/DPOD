@@ -1,13 +1,16 @@
-
-import re
-import cv2
+import os
 import pickle
 import random
-import numpy as np
-import matplotlib.pyplot as plt
+import re
+
+import cv2
 import matplotlib.image as mpimg
-from helper import save_obj, load_obj, create_bounding_box
-import os
+import matplotlib.pyplot as plt
+import numpy as np
+
+from create_ground_truth import get_rot_tra
+from helper import create_bounding_box, load_obj, save_obj
+
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 if not os.path.exists("./LineMOD_Dataset/iron/obb/"):
@@ -33,6 +36,10 @@ for dat_adr in [f for f in os.listdir(datpath) if os.path.isfile(os.path.join(da
     idx = regex.findall(dat_adr)[0]
     image = cv2.imread("./LineMOD_Dataset/iron/changed_background/color" + idx + ".png")
     image = create_bounding_box(image, pred_pose, pt_cld_data, intrinsic_matrix)
+    tra_adr = "./LineMOD_Dataset/iron/data/tra" + str(idx) + ".tra"
+    rot_adr = "./LineMOD_Dataset/iron/data/rot" + str(idx) + ".rot"
+    gt_pose = get_rot_tra(rot_adr, tra_adr)
+    image = create_bounding_box(image, gt_pose, pt_cld_data, intrinsic_matrix, (0,255,0))
 
     if image is not None:
         cv2.imwrite("./LineMOD_Dataset/iron/obb/" + idx + ".png", image)
